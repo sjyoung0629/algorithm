@@ -13,6 +13,15 @@
  * 
  */
 
+ /**
+  * < 풀이 >
+  * 우선 s 문자열의 길이를 2로 나누고,
+  * 정수인지 소수점인지를 1로 나눈 나머지로 판단
+  * 정수이면 index 앞뒤 글자를 substring 하고,
+  * 소수점이면 소수점 버린 값에 위치한 글자를 결과로 가져온다.
+  * 
+  * @param {*} s 
+  */
 function solution(s) {
     let answer = '';
     let index = s.length / 2;
