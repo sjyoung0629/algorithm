@@ -14,33 +14,62 @@
  */
 
 function solution(n) {
-    let answer = 0;
+    let answer = -1;
     const big_size = 5;
     const small_size = 3;
-    const divide_big = n / big_size;
-    const remain_big = n % big_size;
 
-    switch(remain_big) {
-        case 0:
+    if (n >=3 && n <= 1000000000) {
+        const divide_big = parseInt(n / big_size);
+        const remain_big = n % big_size;
+
+        if (remain_big === 0) {     // 5로 나누어 떨어지는 경우
             answer = divide_big;
-            break;
-        case 1:
+
+        } else if (remain_big === small_size) {     // 5로 나눴을 때 나머지가 3인 경우
             answer = divide_big + 1;
-            break;
-        case 2:
-            if (n % small_size) {
-                answer = n / small_size;
-            } else {
-                answer = -1;
+
+        } else {
+            let new_num = n;
+            // 5개 상자 수를 최대로 하기 위해
+            for(let idx = divide_big; idx >= 0; idx--) {
+                new_num = n - (idx * big_size);
+                if (new_num % small_size === 0) {
+                    answer = idx + (new_num / small_size);
+                    break;
+                }
             }
-            break;
-        case 3:
-            answer = divide_big + 1;
-            break;
-        case 4:
-            answer = divide_big + 2;
-            break;
+        }
     }
 
     return answer;
+}
+
+let result = {
+    3: 1,
+    4: -1,
+    5: 1,
+    6: 2,
+    7: -1,
+    8: 2,
+    9: 3,
+    10: 2,
+    11: 3,
+    12: 4,
+    13: 3,
+    14: 4,
+    15: 3,
+    16: 4,
+    17: 5,
+    18: 4,
+    19: 5,
+    20: 4,
+    21: 5,
+    22: 6,
+    23: 5,
+    24: 6,
+    25: 5
+};
+
+for (let i=3; i<=25; i++) {
+    console.log(`옷 ${i}개 상자 ${solution(i)}개 정답은 == ${result[i]}`);
 }
